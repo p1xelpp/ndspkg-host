@@ -1,6 +1,8 @@
-import sys
+import argparse
 import os
+import sys
 from ftplib import FTP
+
 
 def parse_args():
     """Parses custom command line arguments manually to get multiple commands."""
@@ -9,21 +11,35 @@ def parse_args():
         try:
             idx = sys.argv.index("--autoexec")
             raw_string = sys.argv[idx + 1]
-            # Split commands by semicolon and clear empty whitespace strings
             autoexec_cmds = [cmd.strip() for cmd in raw_string.split(";") if cmd.strip()]
         except IndexError:
             print("Warning: --autoexec flag found but no commands were provided.")
     return autoexec_cmds
 
-try:
-    # Fast defaults for your environment
-    FTP_HOST = input("Enter FTP server IP/DNS (default: 192.168.178.176): ").strip() or "192.168.178.176"
-    FTP_USER = input("Enter your FTP username: ").strip()
-    FTP_PASS = input("Enter your FTP password: ")
-    FTP_PORT = int(input("Enter the FTP port (default 5000): ") or 5000)
-except KeyboardInterrupt:
-    print("\n\nSetup cancelled by user.")
-    exit()
+
+def resolve_ftp_settings():
+    """Resolve FTP settings from CLI args, env vars, or defaults without prompting at import time."""
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("--host", "--ip", dest="host", default=os.environ.get("FTP_HOST", "192.168.178.176"))
+    parser.add_argument("--user", dest="user", default=os.environ.get("FTP_USER", ""))
+    parser.add_argument("--pass", "--password", dest="password", default=os.environ.get("FTP_PASS", ""))
+    parser.add_argument("--port", type=int, default=int(os.environ.get("FTP_PORT", "5000")))
+    known_args, _ = parser.parse_known_args()
+
+    return {
+        "host": known_args.host,
+        "user": known_args.user,
+        "password": known_args.password,
+        "port": known_args.port,
+    }
+
+
+FTP_SETTINGS = resolve_ftp_settings()
+FTP_HOST = FTP_SETTINGS["host"]
+FTP_USER = FTP_SETTINGS["user"]
+FTP_PASS = FTP_SETTINGS["password"]
+FTP_PORT = FTP_SETTINGS["port"]
+
 
 def display_file_list(ftp_instance):
     """Fetches and displays the current directory contents with details."""
@@ -31,29 +47,30 @@ def display_file_list(ftp_instance):
     print("-" * 80)
     print(f"{'Permissions':<12} {'Links/Owner':<12} {'Group':<10} {'Size (Bytes)':<12} {'Modified Date':<15} {'Name'}")
     print("-" * 80)
-    
+
     lines = []
     ftp_instance.dir(lines.append)
     for line in lines:
         print(line)
     print("-" * 80)
 
+
 def handle_command(choice, ftp):
     """Processes a single string command input."""
     if not choice:
         return True
-        
+
     parts = choice.split(" ", 1)
     cmd = parts[0].lower()
     arg = parts[1] if len(parts) > 1 else ""
-    
+
     if cmd == "exit":
         print("toodles!")
         return False
-        
+
     elif cmd == "ls":
         display_file_list(ftp)
-        
+
     elif cmd == "cd":
         if arg:
             try:
@@ -63,7 +80,7 @@ def handle_command(choice, ftp):
                 print(f"Error changing directory: {e}")
         else:
             print("Usage: cd <folder_name> (or 'cd ..' to go back)")
-            
+
     elif cmd == "get":
         if arg:
             print(f"Downloading '{arg}'...")
@@ -75,7 +92,7 @@ def handle_command(choice, ftp):
                 print(f"Download failed: {e}")
         else:
             print("Usage: get <filename.nds>")
-            
+
     elif cmd == "put":
         if arg:
             if os.path.exists(arg):
@@ -94,32 +111,29 @@ def handle_command(choice, ftp):
         print(f"Unknown command: '{cmd}'")
     return True
 
+
 def main():
     autoexec_cmds = parse_args()
-    
-    print(f"Connecting to ftp://{FTP_HOST}:{FTP_PORT}...")
+
     try:
+        print(f"Connecting to ftp://{FTP_HOST}:{FTP_PORT}...")
         ftp = FTP()
         ftp.connect(host=FTP_HOST, port=FTP_PORT, timeout=30)
-        
+
         with ftp:
             ftp.login(user=FTP_USER, passwd=FTP_PASS)
             print("Login successful!")
-            
-            # Execute multiple commands sequentially if present
+
             if autoexec_cmds:
                 print(f"\n--- Running [AUTOEXEC] Sequence ({len(autoexec_cmds)} commands) ---")
                 for command in autoexec_cmds:
                     print(f">> Executing: {command}")
-                    # If an autoexec command is "exit", close out immediately
                     if not handle_command(command, ftp):
                         return
                 print("--- [AUTOEXEC] Sequence Finished ---\n")
             else:
-                # Show initial file list only if no autoexec overrode it
                 display_file_list(ftp)
-            
-            # Drop into the normal interactive loop
+
             while True:
                 print("\nAvailable Commands: [cd <folder>] [get <file>] [put <file>] [ls] [exit]")
                 try:
@@ -127,12 +141,15 @@ def main():
                 except KeyboardInterrupt:
                     print("\nExiting...")
                     break
-                
+
                 if not handle_command(choice, ftp):
                     break
-            
+
+    except KeyboardInterrupt:
+        print("\nSetup cancelled by user.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
     main()
