@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ndspkg Repository</title>
+    <style>
+        :root {
+            --primary: #0070d2;
+            --dark: #1a1a24;
+            --light: #f5f7fa;
+            --text: #2d3748;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            border-bottom: 4px solid var(--primary);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: -0.5px;
+        }
+        header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        main {
+            max-width: 850px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: var(--dark);
+            margin-top: 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.6rem;
+            font-size: 1.6rem;
+        }
+        ol {
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 1rem;
+        }
+        .code-block-container {
+            position: relative;
+            margin: 0.8rem 0;
+        }
+        code {
+            background-color: #edf2f7;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9rem;
+            color: #c53030;
+        }
+        pre code {
+            display: block;
+            padding: 1.2rem;
+            overflow-x: auto;
+            color: var(--text);
+            background-color: #1e1e24;
+            color: #f8f8f2;
+            border-radius: 8px;
+        }
+        .url-box {
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            word-break: break-all;
+            font-family: monospace;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #718096;
+            font-size: 0.95rem;
+        }
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ndspkg Repository Host</h1>
+        <p>Package manager for Nintendo DSi using ftpd</p>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>About ndspkg</h2>
+            <p>This repository serves as a package hub for <strong>ndspkg</strong>. It allows you to host, browse, and quickly install homebrew applications directly onto your custom-firmware enabled Nintendo DSi over Wi-Fi.</p>
+        </section>
+
+        <section class="card">
+            <h2>How to Connect Your DSi</h2>
+            <ol>
+                <li>Ensure your Nintendo DSi is running and connected via FTP using <a href="https://universal-team.net" target="_blank">ftpd</a>.</li>
+                <li>Make sure you have downloaded the manager client configuration tools on your PC via <a href="https://github.com" target="_blank">ndspkg-host</a>.</li>
+                <li>Add this repository URL to your setup config if it is not present by default:
+                    <div class="url-box">
+                        https://github.com/raw/refs/heads/main/index.json
+                    </div>
+                </li>
+                <li>Run <code>ndspkg.py</code> on your command line interface and target your desired homebrew app:
+                    <div class="code-block-container">
+                        <pre><code>python ndspkg.py install dsicalendar</code></pre>
+                    </div>
+                    <em>(Tip: You can use the <code>lsp</code> command to query and find available titles across the index)</em>
+                </li>
+                <li>Wait for the files to download directly to your SD card, then boot up your system!</li>
+            </ol>
+        </section>
+
+        <section class="card">
+            <h2>Repository Index Format</h2>
+            <p>Applications in this index are managed inside the <code>index.json</code> configuration layout structure:</p>
+<pre><code>{
+  "packages": [
+    {
+      "name": "dsicalendar",
+      "version": "1.0",
+      "description": "A calendar application for the Nintendo DSi",
+      "url": "https://githubusercontent.com"
+    }
+  ]
+}</code></pre>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ndspkg-host Project. Built for the Nintendo DS / DSi homebrew ecosystem.</p>
+    </footer>
+
+</body>
+</html>
