@@ -11,18 +11,6 @@
       "version": "1.0",
       "description": "a simple calendar for the Nintendo DSi!",
       "url": "https://github.com/p1xelpp/DSi-calendar/raw/refs/heads/main/dsicalendar.nds"
-    },
-    {
-      "name": "ctgp nitro",
-      "version": "1.1",
-      "description": "credit: the ctgp nitro team, this is also a test, ill ask for permission later on :D (file hosted on ctgp nitro web patcher repo btw)",
-      "url": "https://github.com/Ermelber/CTGPNitroWebPatcher/raw/refs/heads/main/assets/patches/CTGP_Nitro_EU.xdelta"
-    },
-    {
-      "name": "Newer Super Mario Bros DS",
-      "version": "?",
-      "description": "credit: newersmbds team, this is also a test, ill ask for permission later on :D (file hosted on newersmbds web patcher repo btw)",
-      "url": "https://github.com/Newer-Team/NewerSMBDS/raw/refs/heads/main/patches/Newer%20Super%20Mario%20Bros.%20DS.nds.xdelta3"
     }
   ]
 }
