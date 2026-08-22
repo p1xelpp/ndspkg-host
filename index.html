@@ -3,163 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ndspkg Repository</title>
+    <title>NDSPKG Repository</title>
     <style>
-        :root {
-            --primary: #0070d2;
-            --dark: #1a1a24;
-            --light: #f5f7fa;
-            --text: #2d3748;
-            --card-bg: #ffffff;
-        }
+        /* Dark GitHub/Homebrew-inspired styling matching repo.html */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background-color: var(--light);
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
             margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #58a6ff;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 10px;
+        }
+        .ascii-art {
+            white-space: pre;
+            color: #238636;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .package-list {
+            list-style: none;
             padding: 0;
         }
-        header {
-            background-color: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 3rem 1rem;
-            border-bottom: 4px solid var(--primary);
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.8rem;
-            letter-spacing: -0.5px;
-        }
-        header p {
-            margin: 0.5rem 0 0 0;
-            opacity: 0.8;
-            font-size: 1.1rem;
-        }
-        main {
-            max-width: 850px;
-            margin: 2.5rem auto;
-            padding: 0 1.5rem;
-        }
-        .card {
-            background: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            margin-bottom: 2rem;
-        }
-        h2 {
-            color: var(--dark);
-            margin-top: 0;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.6rem;
-            font-size: 1.6rem;
-        }
-        ol {
-            padding-left: 1.5rem;
-        }
-        li {
-            margin-bottom: 1rem;
-        }
-        .code-block-container {
-            position: relative;
-            margin: 0.8rem 0;
-        }
-        code {
-            background-color: #edf2f7;
-            padding: 0.3rem 0.6rem;
+        .package-item {
+            background-color: #161b22;
+            border: 1px solid #30363d;
             border-radius: 6px;
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            font-size: 0.9rem;
-            color: #c53030;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        pre code {
-            display: block;
-            padding: 1.2rem;
-            overflow-x: auto;
-            color: var(--text);
-            background-color: #1e1e24;
-            color: #f8f8f2;
-            border-radius: 8px;
+        .package-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
-        .url-box {
-            background-color: #ebf8ff;
-            border-left: 4px solid var(--primary);
-            padding: 1rem;
-            border-radius: 0 8px 8px 0;
-            word-break: break-all;
-            font-family: monospace;
-            margin: 1rem 0;
+        .package-name {
+            font-size: 1.2em;
+            color: #f0f6fc;
+            font-weight: bold;
         }
-        footer {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: #718096;
-            font-size: 0.95rem;
+        .package-version {
+            font-size: 0.85em;
+            color: #8b949e;
         }
-        a {
-            color: var(--primary);
+        .download-btn {
+            background-color: #238636;
+            color: white;
             text-decoration: none;
-            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9em;
+            font-family: sans-serif;
         }
-        a:hover {
-            text-decoration: underline;
+        .download-btn:hover {
+            background-color: #2ea44f;
+        }
+        .error {
+            color: #f85149;
+            font-weight: bold;
+        }
+        .loading {
+            color: #8b949e;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>ndspkg Repository Host</h1>
-        <p>Package manager for Nintendo DSi using ftpd</p>
-    </header>
+    <div class="container">
+        <div class="ascii-art">
+ N D S    P K G
+        </div>
 
-    <main>
-        <section class="card">
-            <h2>About ndspkg</h2>
-            <p>This repository serves as a package hub for <strong>ndspkg</strong>. It allows you to host, browse, and quickly install homebrew applications directly onto your custom-firmware enabled Nintendo DSi over Wi-Fi.</p>
-        </section>
+        <h1>ndspkg Repository</h1>
+        <p>Welcome to the ndspkg package index. This page is dynamically updated using index.json.</p>
 
-        <section class="card">
-            <h2>How to Connect Your DSi</h2>
-            <ol>
-                <li>Ensure your Nintendo DSi is running and connected via FTP using <a href="https://db.universal-team.net/ds/ftpd" target="_blank">ftpd</a>.</li>
-                <li>Make sure you have downloaded the manager client configuration tools on your PC via <a href="https://github.com/p1xelpp/ndspkg" target="_blank">ndspkg</a>.</li>
-                <li>Add this repository URL to your setup config if it is not present by default:
-                    <div class="url-box">
-                        https://github.com/raw/refs/heads/main/index.json
-                    </div>
-                </li>
-                <li>Run <code>ndspkg.py</code> on your cli:
-                    <div class="code-block-container">
-                        <pre><code>python ndspkg.py</code></pre>
-                    </div>
-                    <em>(Tip: You can use the <code>lsp</code> command to query and find available titles across the index)</em>
-                </li>
-                <li>Wait for the files to download directly to your SD card, then boot up your system!</li>
-            </ol>
-        </section>
+        <h2>Available Packages</h2>
+        <div id="loading" class="loading">Loading packages from index.json...</div>
+        <ul id="packages" class="package-list"></ul>
+    </div>
 
-        <section class="card">
-            <h2>Repository Index Format</h2>
-            <p>Applications in this index are managed inside the <code>index.json</code> configuration layout structure:</p>
-<pre><code>{
-  "packages": [
-    {
-      "name": "dsicalendar",
-      "version": "1.0",
-      "description": "A calendar application for the Nintendo DSi",
-      "url": "https://githubusercontent.com"
-    }
-  ]
-}</code></pre>
-        </section>
-    </main>
+    <script>
+        async function loadRepo() {
+            const listElement = document.getElementById('packages');
+            const loadingElement = document.getElementById('loading');
 
-    <footer>
-        <p>&copy; 2026 ndspkg-host Project. Built for the Nintendo DS / DSi homebrew ecosystem.</p>
-    </footer>
+            try {
+                // Fetch the index.json situated in the same directory
+                const response = await fetch('./index.json');
+                if (!response.ok) throw new Error('Could not load index.json');
+                
+                const data = await response.json();
+                loadingElement.style.display = 'none';
 
+                // Automatically handle arrays or structured root objects (e.g., data.packages)
+                const packages = Array.isArray(data) ? data : (data.packages || Object.values(data));
+
+                if (!packages || packages.length === 0) {
+                    listElement.innerHTML = '<li>No packages found in index.json.</li>';
+                    return;
+                }
+
+                packages.forEach(pkg => {
+                    const li = document.createElement('li');
+                    li.className = 'package-item';
+
+                    // Extract fallback fields depending on how your JSON schema is built
+                    const name = pkg.name || 'Unknown Package';
+                    const version = pkg.version ? `v${pkg.version}` : '';
+                    
+                    // Prioritize full url values, fall back to relative path
+                    const downloadUrl = pkg.url || pkg.download_url || `./packages/${pkg.filename || pkg.name}`;
+
+                    li.innerHTML = `
+                        <div class="package-info">
+                            <span class="package-name">${name}</span>
+                            ${version ? `<span class="package-version">${version}</span>` : ''}
+                        </div>
+                        <a href="${downloadUrl}" class="download-btn" download>Download</a>
+                    `;
+                    listElement.appendChild(li);
+                });
+
+            } catch (error) {
+                loadingElement.className = 'error';
+                loadingElement.innerText = `Error loading repository: ${error.message}`;
+            }
+        }
+
+        // Initialize fetching on page load
+        loadRepo();
+    </script>
 </body>
 </html>
